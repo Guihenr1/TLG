@@ -66,7 +66,10 @@ namespace TLG.Api.Security
 
       DateTime dataCriacao = DateTime.Now;
       DateTime dataExpiracao = dataCriacao +
-          TimeSpan.FromSeconds(_tokenConfigurations.Seconds);
+          TimeSpan.FromHours(_tokenConfigurations.Seconds);
+
+      var claims = new Dictionary<string, object>();
+      claims.Add(ClaimTypes.NameIdentifier.ToString(), user.UserID!);
 
       var handler = new JwtSecurityTokenHandler();
       var securityToken = handler.CreateToken(new SecurityTokenDescriptor
@@ -76,7 +79,8 @@ namespace TLG.Api.Security
         SigningCredentials = _signingConfigurations.SigningCredentials,
         Subject = identity,
         NotBefore = dataCriacao,
-        Expires = dataExpiracao
+        Expires = dataExpiracao,
+        Claims = claims
       });
       var token = handler.WriteToken(securityToken);
 
