@@ -11,9 +11,15 @@ namespace TLG.Infrastructure.Data
     {
     }
 
+    public DbSet<ApplicationUser> Users { get; set; }
+
     protected override void OnModelCreating(ModelBuilder builder)
     {
       base.OnModelCreating(builder);
+
+      builder.Entity<ApplicationUser>()
+            .HasMany(user => user.Wishlists)
+            .WithOne(wishlist => wishlist.User);
     }
   }
 }
