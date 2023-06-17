@@ -10,5 +10,12 @@ services:
     volumes:
       - tlg-data:/var/opt/mssql/tlg-data
 
+  tlg:
+    build: .
+    ports:
+      - "5005:80"
+    depends_on:
+      - sqlserver
+
 volumes:
   tlg-data:
