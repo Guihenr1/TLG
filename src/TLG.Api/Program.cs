@@ -3,7 +3,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using TLG.Api.Security;
+using TLG.Application.Interfaces;
+using TLG.Application.Services;
+using TLG.Core.Repositories;
+using TLG.Core.Repositories.Base;
 using TLG.Infrastructure.Data;
+using TLG.Infrastructure.Repositories;
+using TLG.Infrastructure.Repositories.Base;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -62,6 +68,10 @@ builder.Services.AddJwtSecurity(tokenConfigurations);
 
 builder.Services.AddScoped<IdentityInitializer>();
 
+builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+builder.Services.AddScoped<IContentRepository, ContentRepository>();
+builder.Services.AddScoped<IContentService, ContentService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -81,6 +91,9 @@ app.UseAuthorization();
 
 using var scope = app.Services.CreateScope();
 scope.ServiceProvider.GetRequiredService<IdentityInitializer>().Initialize();
+var services = scope.ServiceProvider;
+var context = services.GetRequiredService<Context>();
+PostSeed.Seed(context).Wait();
 
 app.UseAuthorization();
 
