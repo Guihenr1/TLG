@@ -1,5 +1,7 @@
 using System.Text.Json.Serialization;
 using TLG.Core.Entities.Base;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Identity;
 
 namespace TLG.Core.Entities
 {
@@ -8,8 +10,6 @@ namespace TLG.Core.Entities
     public string UserId { get; set; }
     public Guid ContentId { get; set; }
 
-    [JsonIgnore]
-    public ApplicationUser User { get; set; }
     [JsonIgnore]
     public Content Content { get; set; }
   }

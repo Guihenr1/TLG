@@ -29,5 +29,26 @@ namespace TLG.Infrastructure.Repositories
 
       return result;
     }
+
+    public async Task<ContentPagination> GetAllByWishlist(int pageNumber, int pageSize, string userId)
+    {
+      var result = new ContentPagination()
+      {
+        Contents = new List<Content>()
+      };
+      result.Count = _dbContext.Wishlists
+        .Where(x => x.UserId == userId)
+        .Include(x => x.Content)
+        .Select(x => x.Content).Count();
+      var itemsToSkip = (pageNumber - 1) * pageSize;
+
+      result.Contents.AddRange(await _dbContext.Wishlists
+        .Where(x => x.UserId == userId)
+        .Include(x => x.Content)
+        .Select(x => x.Content)
+        .ToListAsync());
+
+      return result;
+    }
   }
 }

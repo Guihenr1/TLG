@@ -16,10 +16,6 @@ namespace TLG.Infrastructure.Data
     protected override void OnModelCreating(ModelBuilder builder)
     {
       base.OnModelCreating(builder);
-
-      builder.Entity<ApplicationUser>()
-            .HasMany(user => user.Wishlists)
-            .WithOne(wishlist => wishlist.User);
     }
   }
 }

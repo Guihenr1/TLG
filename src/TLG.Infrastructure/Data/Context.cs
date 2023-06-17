@@ -47,11 +47,6 @@ namespace TLG.Infrastructure.Data
               .WithMany(content => content.Wishlists)
               .IsRequired()
               .HasForeignKey(wishlist => wishlist.ContentId);
-
-      builder.HasOne(wishlist => wishlist.User)
-              .WithMany(user => user.Wishlists)
-              .IsRequired()
-              .HasForeignKey(wishlist => wishlist.UserId);
     }
   }
 }

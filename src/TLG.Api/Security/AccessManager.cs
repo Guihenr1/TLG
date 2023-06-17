@@ -68,8 +68,10 @@ namespace TLG.Api.Security
       DateTime dataExpiracao = dataCriacao +
           TimeSpan.FromHours(_tokenConfigurations.Seconds);
 
+      var userIdentity = _userManager
+            .FindByNameAsync(user.UserID!).Result;
       var claims = new Dictionary<string, object>();
-      claims.Add(ClaimTypes.NameIdentifier.ToString(), user.UserID!);
+      claims.Add(ClaimTypes.NameIdentifier.ToString(), userIdentity!.Id);
 
       var handler = new JwtSecurityTokenHandler();
       var securityToken = handler.CreateToken(new SecurityTokenDescriptor

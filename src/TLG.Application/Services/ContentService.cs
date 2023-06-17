@@ -22,5 +22,10 @@ namespace TLG.Application.Services
     {
       return await contentRepository.GetAll(pageNumber, pageSize);
     }
+
+    public async Task<ContentPagination> GetAllByWishlist(int pageNumber, int pageSize, string userId)
+    {
+      return await contentRepository.GetAllByWishlist(pageNumber, pageSize, userId);
+    }
   }
 }
