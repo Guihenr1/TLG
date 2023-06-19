@@ -7,7 +7,7 @@
 
 ### Project execution
 
-- Run in project root:
+- Run the following command in the project root directory:
 
 ```bash
 docker-compose up -d
