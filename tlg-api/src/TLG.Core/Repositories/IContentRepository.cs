@@ -8,5 +8,6 @@ namespace TLG.Core.Repositories
   {
     Task<ContentPagination> GetAll(int pageNumber, int pageSize);
     Task<ContentPagination> GetAllByWishlist(int pageNumber, int pageSize, string userId);
+    Task<ContentPagination> GetAllByWishlist(string userId);
   }
 }

@@ -21,7 +21,9 @@ namespace TLG.Api.Controllers
     [Route("get-all")]
     public async Task<IActionResult> GetAll(int pageNumber, int pageSize)
     {
-      var result = await contentService.GetAll(pageNumber, pageSize);
+      var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+      var result = await contentService.GetAll(pageNumber, pageSize, userId);
 
       return Ok(result);
     }

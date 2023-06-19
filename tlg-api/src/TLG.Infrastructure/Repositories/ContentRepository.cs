@@ -46,6 +46,28 @@ namespace TLG.Infrastructure.Repositories
         .Where(x => x.UserId == userId)
         .Include(x => x.Content)
         .Select(x => x.Content)
+        .Skip(itemsToSkip)
+        .Take(pageSize)
+        .ToListAsync());
+
+      return result;
+    }
+
+    public async Task<ContentPagination> GetAllByWishlist(string userId)
+    {
+      var result = new ContentPagination()
+      {
+        Contents = new List<Content>()
+      };
+      result.Count = _dbContext.Wishlists
+        .Where(x => x.UserId == userId)
+        .Include(x => x.Content)
+        .Select(x => x.Content).Count();
+
+      result.Contents.AddRange(await _dbContext.Wishlists
+        .Where(x => x.UserId == userId)
+        .Include(x => x.Content)
+        .Select(x => x.Content)
         .ToListAsync());
 
       return result;

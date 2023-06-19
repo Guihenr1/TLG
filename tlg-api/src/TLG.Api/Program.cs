@@ -1,8 +1,8 @@
-using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using TLG.Api.Security;
+using TLG.Application.AutoMapper;
 using TLG.Application.Interfaces;
 using TLG.Application.Services;
 using TLG.Core.Repositories;
@@ -59,6 +59,8 @@ builder.Services.AddDbContext<ApiSecurityDbContext>(options =>
   options.UseSqlServer(builder.Configuration.GetConnectionString("MSSQL"));
 });
 
+builder.Services.AddAutoMapper(typeof(MappingProfile));
+
 var tokenConfigurations = new TokenConfigurations();
 new ConfigureFromConfigurationOptions<TokenConfigurations>(
     builder.Configuration.GetSection("TokenConfigurations"))
@@ -74,7 +76,20 @@ builder.Services.AddScoped<IContentService, ContentService>();
 builder.Services.AddScoped<IWishlistRepository, WishlistRepository>();
 builder.Services.AddScoped<IWishlistService, WishlistService>();
 
+builder.Services.AddCors(options =>
+    {
+      options.AddPolicy("Allow",
+          builder =>
+          {
+            builder.AllowAnyOrigin()
+                     .AllowAnyMethod()
+                     .AllowAnyHeader();
+          });
+    });
+
 var app = builder.Build();
+
+app.UseCors("Allow");
 
 // Configure the HTTP request pipeline.
 app.UseSwagger();
