@@ -10,19 +10,11 @@ const useStyles = makeStyles()(() => ({
   margin: {
     marginLeft: "auto",
   },
-  logo: {
-    cursor: "pointer",
-    fontWeight: "bold",
-  },
   menu: {
-    background: "transparent",
+    background: "white",
     border: "none",
     boxShadow: "none",
     borderBottom: "1px solid #ccc",
-  },
-  link: {
-    textDecoration: "none",
-    color: "black",
   },
   menuMobile: {
     cursor: "pointer",

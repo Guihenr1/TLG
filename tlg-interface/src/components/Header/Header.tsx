@@ -19,6 +19,7 @@ import {
 } from "@mui/material";
 import LogoutIcon from "@mui/icons-material/Logout";
 import MenuIcon from "@mui/icons-material/Menu";
+import Logo from "../Logo/Logo";
 
 interface Menu {
   text: string;
@@ -28,9 +29,10 @@ interface Menu {
 interface HeaderProps {
   menu: Menu[];
   handleClickLogout: Function;
+  link?: string;
 }
 
-const Header: FC<HeaderProps> = ({ menu, handleClickLogout }) => {
+const Header: FC<HeaderProps> = ({ menu, handleClickLogout, link }) => {
   const s = useStyles();
   const isMobile = useMediaQuery("(max-width: 600px)");
   const [tab, setTab] = useState(0);
@@ -57,11 +59,7 @@ const Header: FC<HeaderProps> = ({ menu, handleClickLogout }) => {
     <AppBar color="default" className={s.classes.menu}>
       <Toolbar>
         <Box marginTop={2} marginBottom={2} className={s.classes.header}>
-          <Typography className={s.classes.logo} variant="h4">
-            <Link href="/" className={s.classes.link}>
-              TLG
-            </Link>
-          </Typography>
+          <Logo link={link} />
           {isMobile ? (
             <>
               <IconButton onClick={toggleDrawer(true)}>
@@ -130,6 +128,8 @@ const Header: FC<HeaderProps> = ({ menu, handleClickLogout }) => {
   );
 };
 
-Header.defaultProps = {};
+Header.defaultProps = {
+  link: "/",
+};
 
 export default Header;

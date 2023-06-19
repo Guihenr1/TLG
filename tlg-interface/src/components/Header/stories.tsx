@@ -4,7 +4,6 @@ import Header from "./Header";
 export default {
   component: Header,
   args: {
-    children: "",
     handleClickLogout: () => console.log("Logout"),
     menu: [
       {

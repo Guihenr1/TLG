@@ -14,8 +14,10 @@
     "@types/node": "^16.18.36",
     "@types/react": "^18.2.12",
     "@types/react-dom": "^18.2.5",
+    "axios": "^1.4.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-router-dom": "^6.13.0",
     "react-scripts": "5.0.1",
     "tss-react": "^4.8.6",
     "typescript": "^4.9.5",
@@ -49,6 +51,7 @@
     ]
   },
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@storybook/addon-essentials": "^7.0.22",
     "@storybook/addon-interactions": "^7.0.22",
     "@storybook/addon-links": "^7.0.22",
